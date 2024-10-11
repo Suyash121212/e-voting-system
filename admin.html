@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="drawer-toggle">
+            <span>&#9776;</span> <!-- Hamburger Icon -->
+        </div>
+        <h1>Admin Dashboard</h1>
+    </header>
+
+    <!-- Drawer Menu -->
+    <div id="drawer" class="drawer">
+        <div class="back-arrow">
+            <span>&#8592;</span> <!-- Back Arrow Icon -->
+        </div>
+        <a href="#">Home</a>
+        <a href="#">Contact</a>
+        <a href="#">Profile</a>
+        <a href="#">Logout</a>
+    </div>
+
+    <!-- Main Content Section -->
+    <div class="container">
+        <div class="admin-panel">
+            <!-- Voting Results Section -->
+            <section class="results">
+                <h2>Voting Results</h2>
+                <table id="resultsTable">
+                    <thead>
+                        <tr>
+                            <th>Candidate</th>
+                            <th>Votes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Results will be dynamically inserted here -->
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Function to display the vote results
+        function displayResults() {
+            const resultsTableBody = document.querySelector('#resultsTable tbody');
+
+            // Retrieve votes from localStorage
+            const votes = JSON.parse(localStorage.getItem('votes')) || {};
+
+            // Clear previous rows
+            resultsTableBody.innerHTML = '';
+
+            // Insert a row for each candidate
+            for (const candidate in votes) {
+                const row = document.createElement('tr');
+
+                const candidateCell = document.createElement('td');
+                candidateCell.textContent = candidate;
+
+                const votesCell = document.createElement('td');
+                votesCell.textContent = votes[candidate];
+
+                row.appendChild(candidateCell);
+                row.appendChild(votesCell);
+
+                resultsTableBody.appendChild(row);
+            }
+        }
+
+        // Call displayResults when the page loads
+        document.addEventListener('DOMContentLoaded', displayResults);
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.css">
+    <title>Voter Login</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Voter Login</h2>
+        <form id="loginForm">
+            <input type="text" id="name" placeholder="Name" required>
+            <input type="text" id="aadhar" placeholder="Aadhar Card Number" required>
+            <input type="text" id="userId" placeholder="User ID" required>
+            <!-- <button type="submit">Login</button> -->
+        </form>
+         <button onclick="window.location.href='vote.html'">Vote Now</button>
+        <div id="loginMessage" style="display:none;"></div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const storedUserId = localStorage.getItem('userId');
+            const enteredUserId = document.getElementById('userId').value;
+
+            if (storedUserId === enteredUserId) {
+                document.getElementById('loginMessage').textContent = 'Login Successful!';
+                window.location.href = 'vote.html';
+            } else {
+                document.getElementById('loginMessage').textContent = 'Invalid credentials.';
+            }
+        });
+    </script>
+</body>
+</html>
